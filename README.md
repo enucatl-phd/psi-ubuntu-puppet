@@ -27,6 +27,6 @@ according to the settings specified in the
 It does not set your home to the afs home /afs/psi.ch/user/u/username
 because I don't like to do that.
 
-Puppet is /idempotent/, that is running the command twice just makes sure
+Puppet is _idempotent_, that is running the command twice just makes sure
 that the current configuration matches the requirements, but nothing else
 will happen.
