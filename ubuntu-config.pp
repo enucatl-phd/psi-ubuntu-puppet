@@ -14,6 +14,14 @@ file { "/etc/ntp.conf":
   ensure => present,
   owner => "root",
   group => "root",
+  notify => Service["ntp"],
+}
+
+file { "/etc/cups/client.conf":
+  source => "puppet:///modules/cups/client.conf",
+  ensure => present,
+  owner => "root",
+  group => "root",
 }
 
 file { "/etc/openafs/cacheinfo":
@@ -21,6 +29,7 @@ file { "/etc/openafs/cacheinfo":
   ensure => present,
   owner => "root",
   group => "root",
+  notify => Service["openafs-client"],
 }
 
 file { "/etc/openafs/ThisCell":
@@ -28,6 +37,7 @@ file { "/etc/openafs/ThisCell":
   ensure => present,
   owner => "root",
   group => "root",
+  notify => Service["openafs-client"],
 }
 
 file { "/etc/krb5.conf":
@@ -36,3 +46,12 @@ file { "/etc/krb5.conf":
   owner => "root",
   group => "root",
 }        
+
+service { "ntp":
+  ensure => running,
+}
+
+service { "openafs-client":
+  ensure => running,
+  require => Package["openafs-client", "openafs-krb5"],
+}
